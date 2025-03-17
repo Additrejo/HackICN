@@ -54,13 +54,38 @@ Proporciona ejemplos básicos sobre cómo usar el proyecto. Si tienes capturas d
 ```bash
 # Ejecutar el proyecto (ejemplo para Node.js)
 npm start
-```
+```  
+Partimos de una imagen original y se normaliza de la siguiente forma.  
+[![Comparaci-n.jpg](https://i.postimg.cc/MG0jfzFn/Comparaci-n.jpg)](https://postimg.cc/t1TgLGyb)
+```bash
+import cv2
+import numpy as np
 
+# Cargar imagen en escala de grises
+imagen = cv2.imread("C:/Users/addi_/Downloads/Hackaton/imagenes/Solarflare.jpg", cv2.IMREAD_GRAYSCALE)
+
+# Normalización Min-Max a rango [0, 1]
+imagen_normalizada = imagen.astype(np.float32) / 255.0
+
+cv2.imshow("Imagen Normalizada", imagen_normalizada)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
 Si es una API, proporciona ejemplos de solicitudes:
 
 ```bash
-# Solicitud GET
-curl -X GET https://api.ejemplo.com/endpoint
+import cv2
+import numpy as np
+
+# Cargar imagen en escala de grises
+imagen = cv2.imread("C:/Users/addi_/Downloads/Hackaton/imagenes/Solarflare.jpg", cv2.IMREAD_GRAYSCALE)
+
+# Normalización Min-Max a rango [0, 1]
+imagen_normalizada = imagen.astype(np.float32) / 255.0
+
+cv2.imshow("Imagen Normalizada", imagen_normalizada)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 ```
 
 ---
@@ -105,13 +130,6 @@ Describe los planes futuros de tu proyecto:
 - [ ] Característica 1.
 - [ ] Característica 2.
 - [ ] Corrección de errores conocidos.
-
----
-
-## Licencia
-
-Este proyecto está licenciado bajo la licencia [Nombre de la Licencia](LICENSE).  
-(Copia el texto de la licencia en un archivo `LICENSE` en el repositorio).
 
 ---
 

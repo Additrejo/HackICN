@@ -118,8 +118,8 @@ Detección de Blobs: La función cv2.SimpleBlobDetector es excelente para encont
 
 
 ## 1. Abrir imagen con Spyder (Código ejemplo).
-Abriremos una imagen desde Spyder. 
-Script: [Abrir imagen](Código: abrir_imagen.py)
+Abriremos una imagen desde Spyder.  
+Script: [Abrir imagen con spyder](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/abrir_imagen.py)
 
 <img width="777" height="814" alt="image" src="https://github.com/user-attachments/assets/6f085609-8139-4f5f-a2ec-7ede5e21579f" />
 
@@ -128,16 +128,16 @@ Script: [Abrir imagen](Código: abrir_imagen.py)
 Nuestro primer objetivo es crear un script que cargue una imagen del Sol y encuentre la región más brillante, que es el indicador más obvio de una llamarada. Usaremos una función clave de OpenCV para esto: cv2.minMaxLoc().
 
 Paso : Encontrar el Píxel más Brillante
-Este código identificará el punto exacto de mayor intensidad en la imagen y dibujará un círculo sobre él para que podamos visualizarlo.
+Este código identificará el punto exacto de mayor intensidad en la imagen y dibujará un círculo sobre él para que podamos visualizarlo.  
 
-Script: [Región luminosa](Código: Region_luminosa.py)  
+Script: [Región luminosa](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Region_luminosa.py))  
 <img width="773" height="806" alt="image" src="https://github.com/user-attachments/assets/7fdb9613-8776-47f9-84c2-ceb040de9207" />
 
 
 ## 3. Umbralización para Aislar la Llamarada (Thresholding).
 Crea una nueva imagen donde todo lo que supere un cierto nivel de brillo se pinte de blanco, y todo lo demás se pinte de negro". El resultado es una "máscara" en blanco y negro que nos muestra exactamente la forma de la llamarada.
 
-Script: [Umbral Thresholding](Código: Umbral_Thresholding.py)  
+Script: [Umbral Thresholding](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Umbral_Thresholding.py)  
 <img width="796" height="816" alt="image" src="https://github.com/user-attachments/assets/7b687541-6f26-4111-add3-189c16bb3872" />
 
 
@@ -157,9 +157,9 @@ Si disminuyes este número (ej. 180), serás más permisivo y detectarás áreas
 Te recomiendo experimentar cambiando este valor para ver cómo afecta la detección en diferentes imágenes.
 
 ## Paso 4: Análisis de Contornos y Filtrado por Área.
-La idea es simple: vamos a medir el área (el número de píxeles) de cada contorno que encontramos. Si un contorno es muy pequeño, lo ignoraremos. Si supera un tamaño mínimo, lo marcaremos como una detección válida.
+La idea es simple: vamos a medir el área (el número de píxeles) de cada contorno que encontramos. Si un contorno es muy pequeño, lo ignoraremos. Si supera un tamaño mínimo, lo marcaremos como una detección válida.  
 
-Script: [Contornos y Filtrado por Área](Código: Contornos_y:Filtrado_por_area.py)  
+Script: [Contornos y Filtrado por Área](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Filtro_por_area.py)  
 <img width="519" height="804" alt="image" src="https://github.com/user-attachments/assets/b53b2ce0-f571-481e-ba83-d1afafdedd93" />
 
 Para esto, usaremos la función cv2.contourArea().
@@ -176,9 +176,9 @@ Un filtro if area > area_minima:: Esta es nuestra "puerta de control" 🗑️. S
 El centroide es, en términos simples, el centro geométrico o el "centro de masa" de una forma. Para calcularlo, OpenCV nos proporciona una herramienta matemática llamada Momentos de Imagen (cv2.moments()). A partir de estos momentos, podemos derivar fácilmente las coordenadas (x, y) del centro de la llamarada.
 Esto nos da una ubicación específica para cada evento, un dato crucial para el reto.
 
-Las nuevas líneas calculan el centroide y lo dibujan en la imagen de salida como un pequeño círculo azul.
+Las nuevas líneas calculan el centroide y lo dibujan en la imagen de salida como un pequeño círculo azul.  
 
-Script: [Calcular el Centroide de la Llamarada](Código: Calcular_el_Centroide de la Llamarada.py)  
+Script: [Calcular el Centroide de la Llamarada](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Centroide.py)  
 <img width="424" height="806" alt="image" src="https://github.com/user-attachments/assets/2df40417-8b63-4c43-af0a-4f785ad56989" />
 
 Para cada llamarada detectada, ahora tienes:

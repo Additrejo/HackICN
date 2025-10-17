@@ -209,7 +209,7 @@ Dato para Machine Learning: Has convertido un evento visual en datos numéricos 
 <img width="1134" height="559" alt="image" src="https://github.com/user-attachments/assets/afe57d69-99af-4597-9215-fb94a3a275ba" />
 2. Guardarlo en una carpeta especifica.  
 
-3. Ejecutar el siguente script: [Extracción de imagenes](código)
+3. Ejecutar el siguente script: [Extracción de imagenes](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Extracci%C3%B3n%20de%20fotogramas..py)
 Modificar las siguientes lineas por la ruta del video guardado en tu carpeta.
 
 ```python

@@ -52,9 +52,9 @@ try:
                 
                 # Dibujar el contorno y el centroide en la imagen de salida
                 cv2.drawContours(output_img, [c], -1, (0, 255, 0), 2) # Contorno verde
-                cv2.circle(output_img, (cX, cY), 7, (255, 0, 0), -1) # Círculo azul en el centro
+                cv2.circle(output_img, (cX, cY), 2, (0, 0, 255), -1) # Círculo Rojo en el centro. (B,G,R)
                 cv2.putText(output_img, f"({cX}, {cY})", (cX - 40, cY - 20),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2) #Letras de origen en color amarillo.
 
                 print(f"Detección {i+1}: Área={int(area)} píxeles, Centroide=({cX}, {cY})")
 

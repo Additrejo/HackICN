@@ -179,7 +179,8 @@ Esto nos da una ubicación específica para cada evento, un dato crucial para el
 Las nuevas líneas calculan el centroide y lo dibujan en la imagen de salida como un pequeño círculo azul.  
 
 Script: [Calcular el Centroide de la Llamarada](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Centroide.py)  
-<img width="424" height="806" alt="image" src="https://github.com/user-attachments/assets/2df40417-8b63-4c43-af0a-4f785ad56989" />
+<img width="368" height="808" alt="image" src="https://github.com/user-attachments/assets/dd5e6335-5a23-4ce5-ae77-ca8dbe99dd34" />
+
 
 Para cada llamarada detectada, ahora tienes:
 
@@ -201,8 +202,41 @@ Base para el Seguimiento: Si analizaras una secuencia de imágenes (un video), p
 
 Dato para Machine Learning: Has convertido un evento visual en datos numéricos estructurados (área, posición (x, y)). Este es el tipo de información que se utiliza para entrenar modelos de machine learning que pueden clasificar la intensidad de la llamarada o predecir futuras erupciones.
 
+---
+
+- ## Obentención de imagenes de un video.
+1. Para extraer los fotogramas de un video es necesario descargar el video (preferentemente en formato .mp4).  
+<img width="1134" height="559" alt="image" src="https://github.com/user-attachments/assets/afe57d69-99af-4597-9215-fb94a3a275ba" />
+2. Guardarlo en una carpeta especifica.  
+
+3. Ejecutar el siguente script: [Extracción de imagenes](código)
+Modificar las siguientes lineas por la ruta del video guardado en tu carpeta.
+
+```python
+# 1. Escribe la ruta donde guardaste tu video
+ruta_video = r"C:\Users\addi_\Downloads\HackICN\Solarflare\SFVideo\SFVideo.mp4"
+
+# 2. Escribe la ruta de la carpeta donde quieres guardar las imágenes
+carpeta_salida = r"C:\Users\addi_\Downloads\HackICN\Solarflare\SFVideo"
+
+```
+Al ejecutarse el script obtendremos los fotogramas.
+<img width="744" height="481" alt="image" src="https://github.com/user-attachments/assets/10837e34-c9de-4dd7-bf46-ded65008c6f8" />
+
+Tenemos todo listo para pasar al siguiente paso:
+
+---
+
 ## Paso 5: Automatización y Procesamiento en Lote. (PENDIENTE)
 
+Reestructurar el código para que apunte a una carpeta, analice todas las imágenes que encuentre dentro y guarde los resultados en una lista. Para esto, usaremos la librería **os** de Python, que nos permite interactuar con los archivos y carpetas del sistema.
+El nuevo script hace lo siguiente:
+
+Encapsular la lógica: Moveremos todo el código de análisis a una función reutilizable llamada analizar_imagen().
+
+Recorrer la carpeta: El script principal definirá la ruta a una carpeta, leerá cada archivo y llamará a la función de análisis.
+
+Recopilar los datos: Guardaremos todos los resultados (nombre del archivo, área y centroide de cada llamarada) para tener un resumen final.
 
 
 

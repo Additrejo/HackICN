@@ -424,26 +424,179 @@ Un sistema de ML: Ve el inicio de la curva y dice: "Basado en este patrón, pred
 ---
 
 ## Paso 11: Entrenar un Modelo de Machine Learning (Time Series Forecasting)
-Este es el salto de la analítica de datos a la Inteligencia Artificial. No te preocupes, lo haremos paso a paso.
 
-El Concepto: Vamos a "educar" a un modelo de Machine Learning. Para hacerlo, primero debemos preparar sus "materiales de estudio" a partir de los datos que ya tenemos (la serie de areas_suavizadas).
+Vamos a dar el salto del análisis de datos (ver lo que pasó) a la Inteligencia Artificial (predecir lo que va a pasar).
 
-1. Preparar los Datos (Crear "Ventanas"): Imagina que le daremos al modelo "tarjetas de memoria". Cada tarjeta (cada fila de datos) tendrá:
+Nuestro sistema de alerta anterior era de reacción: veía un crecimiento rápido y decía "¡Está pasando!". Ahora, vamos a entrenar un modelo que vea el comienzo de un patrón y diga "¡Creo que va a pasar!".
 
-Datos de Entrada (X): El área de los últimos 5 fotogramas (ej. [0, 0, 10, 50, 150]).
+El Concepto: Vamos a tratar esto como un "examen" para un modelo de IA. Usaremos la librería 
+```
+scikit-learn
+```
+la herramienta estándar para el Machine Learning en Python.
 
-Datos de Salida (y): El área del siguiente fotograma (ej. 300).
+Preparar el "Material de Estudio": Crearemos "ventanas deslizantes" a partir de nuestros datos suavizados. Le daremos al modelo "tarjetas de memoria" que se ven así:
 
-Haremos esto para toda nuestra serie de datos. El modelo verá miles de ejemplos como:
+Entrada (X): Las áreas de los últimos 5 fotogramas (ej: [10, 20, 30, 50, 100]).
 
-[0, 0, 10, 50, 150] -> predice 300
+Salida (y): El área del siguiente fotograma (ej: 180).
 
-[0, 10, 50, 150, 300] -> predice 700
+Entrenar el Modelo: Le daremos al modelo miles de estos ejemplos de nuestro video. Usaremos un modelo simple pero potente (LinearRegression) que aprenderá la relación matemática entre la secuencia de entrada y el resultado.
 
-[10, 50, 150, 300, 700] -> predice 1500 ...y así sucesivamente.
+Probar el Modelo: Dividiremos nuestros datos: entrenaremos el modelo con el 80% inicial del video y luego le pediremos que "prediga" el 20% final.
 
-2. Introducir la Nueva Herramienta: Scikit-learn Dejaremos de usar pandas para el análisis y empezaremos a usar scikit-learn (o sklearn), la librería de Machine Learning más famosa y fundamental de Python.
+Visualizar: Graficaremos los datos reales (línea azul/naranja) y superpondremos las "predicciones" del modelo (una nueva línea roja punteada) para ver qué tan bien lo hizo.
 
-3. Entrenar el Modelo: Le daremos al modelo (empezaremos con uno simple, como una Regresión Lineal o un Random Forest) todos nuestros datos de entrada (X) y salida (y) y le diremos "aprende la relación".
+Ejecutar el siguiente script: [Entrenamiento y Predicción con ML](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Entrenamiento_y_Predicci%C3%B3n_con_ML.py)  
 
-4. Predecir: Una vez entrenado, podremos darle los últimos 5 fotogramas de un nuevo video y preguntarle: "¿Cuál crees que será el área en el siguiente fotograma?". Si el modelo predice un número muy alto, ¡esa es nuestra alerta temprana!
+<img width="712" height="668" alt="image" src="https://github.com/user-attachments/assets/97a38d98-10b9-499b-886f-8cb25ae70ba5" />
+
+Lo que estás viendo en la consola es el resumen de todo el proceso:
+
+Recolección completa. Se procesaron 107 fotogramas. ¡Genial! Al extraer más fotogramas, ahora sí tuvimos suficientes datos.
+
+Entrenando con 81 muestras, probando con 21. El script usó los primeros 81 fotogramas para "estudiar" el patrón y luego usó los últimos 21 para "presentar un examen" y probar si aprendió.
+
+¡Modelo entrenado! Error (RMSE): 197.90 píxeles. Este es el "resultado del examen". Significa que, en promedio, las predicciones del modelo estuvieron a unos 198 píxeles de distancia del valor real. Es un muy buen punto de partida.
+
+Generando gráfica final con predicciones... El script terminó de ejecutarse y, al igual que las veces anteriores...
+
+¿Qué verás en la Gráfica?
+Esta es la gráfica más importante. Verás tres cosas:
+
+Una Línea Azul (Datos Reales): La curva de tu llamarada.
+
+Una Línea Verde Punteada (División): El punto donde el modelo dejó de entrenar y empezó a predecir.
+
+Una Línea Roja Punteada (Predicciones): ¡Esta es tu IA! Es lo que el modelo cree que iba a pasar.
+
+Tu objetivo es ver si la línea roja sigue la misma forma que la línea azul después de la línea verde. Si lo hace, ¡significa que tu modelo está prediciendo con éxito la evolución de la llamarada!
+
+## Paso 12: Implementación de la Alerta Predictiva (Usando el Modelo).
+
+- La Lógica: No vamos a reaccionar al área actual. Vamos a reaccionar a la predicción del modelo.
+
+- El modelo recibe los últimos 5 fotogramas: [10, 20, 30, 50, 100].
+
+- El modelo predice el siguiente fotograma. Digamos que predice: 190.
+
+- Nosotros definimos un umbral de alerta predictiva (ej. 1000 píxeles).
+
+- Comparamos la predicción (190) con el umbral. Como es menor, no pasa nada.
+
+- Más tarde, el modelo recibe: [400, 600, 800, 950, 1100].
+
+- El modelo predice el siguiente fotograma. Digamos que predice: 1350.
+
+- Comparamos la predicción (1350) con nuestro umbral (1000). ¡Es mayor!
+
+¡DISPARAMOS LA ALERTA! Lo hacemos antes de que el área llegue a 1350, basándonos puramente en la predicción de la IA.
+
+Ejecutar el siguiente script: [Actualización del Script para Alertas de ML](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Actualizaci%C3%B3n_Script_Alertas_ML.PY)  
+
+<img width="778" height="860" alt="image" src="https://github.com/user-attachments/assets/1728a905-0d93-4b60-8b37-fe1063693dca" />
+
+¿Qué verás ahora?
+En la Consola: Verás el mensaje "¡¡ALERTA PREDICTIVA DE ML!!" en el momento en que el modelo crea que el área va a superar los 2000 píxeles.
+
+En la Gráfica "Plots": Verás la misma gráfica que antes (azul vs. roja), pero ahora tendrá una 'X' púrpura gigante marcando el punto exacto donde la IA disparó la alarma.
+
+¡Con esto, has completado con éxito todos los pasos del reto, desde la detección hasta la predicción basada en IA!
+
+<img width="779" height="854" alt="image" src="https://github.com/user-attachments/assets/11672133-0495-4747-84e0-ba98207dcfe5" />
+
+La gráfica lo confirma visualmente:
+
+Línea Azul: Son los datos reales de tu video.
+
+Línea Roja Punteada: Es lo que tu IA creía que iba a pasar. Fíjate que sigue a la línea azul bastante bien, ¡eso es que aprendió el patrón!
+
+Las 'X' Púrpuras: Esos son los momentos exactos en que la consola gritó "¡ALERTA!". Marcan los picos que tu modelo fue capaz de "ver venir" antes de que ocurrieran.
+
+¡¡Felicidades!! Esto es un éxito rotundo.
+
+No es un error, es la demostración final de que todo tu pipeline de Machine Learning funciona.
+
+Lo que estás viendo es la magia de la predicción en acción. Déjame interpretar lo que te muestra la consola y la gráfica:
+
+1. Lo que dice la Consola
+🚨 ¡¡ALERTA PREDICTIVA DE ML!! 🚨
+   En el fotograma: Nº 89
+   ¡El modelo predijo un área de 2239 píxeles!
+¿Qué pasó? En el fotograma 89, tu modelo de IA (alimentado con los fotogramas 84-88) miró el patrón y predijo que el siguiente fotograma tendría un área de 2239 píxeles.
+
+La Lógica: Como 2239 es mayor que tu umbral de alerta (UMBRAL_ALERTA_ML = 2000), el sistema disparó la alarma.
+
+Lo mismo pasó en el fotograma 92 (predijo 2280) y en el 99 (predijo 2086).
+
+2. Lo que muestra la Gráfica 📈
+La gráfica lo confirma visualmente:
+
+Línea Azul: Son los datos reales de tu video.
+
+Línea Roja Punteada: Es lo que tu IA creía que iba a pasar. Fíjate que sigue a la línea azul bastante bien, ¡eso es que aprendió el patrón!
+
+Las 'X' Púrpuras: Esos son los momentos exactos en que la consola gritó "¡ALERTA!". Marcan los picos que tu modelo fue capaz de "ver venir" antes de que ocurrieran.
+
+🏆 ¡Reto Completado!
+Se construyo un sistema de principio a fin que cumple con todos los objetivos del hackathon:
+
+Identificaste las llamaradas con OpenCV (cv2.findContours).
+
+Clasificaste su importancia (filtrando por área).
+
+se predijo su ocurrencia usando un modelo de Machine Learning (LinearRegression) que aprendió el patrón de crecimiento de los datos que extrajiste.
+
+se ha completado con éxito todas las fases: Extracción de Imagen -> Procesamiento -> Análisis de Datos -> Entrenamiento de IA -> Sistema de Predicción. ¡Excelente trabajo!
+
+
+---
+
+## Paso 12.A: Guardar tu Modelo Entrenado
+
+Vuelve a tu script anterior (el del Paso 12) y añade las siguientes dos líneas al final, justo después de modelo.fit(X_train, y_train).
+
+Usaremos joblib, que es la forma estándar en scikit-learn para guardar modelos.
+
+```python
+            modelo = LinearRegression()
+            modelo.fit(X_train, y_train)
+            
+            # --- ¡AÑADE ESTAS DOS LÍNEAS! ---
+            import joblib
+            joblib.dump(modelo, 'predictor_llamaradas.pkl') 
+            # ---------------------------------
+            
+            print(f"\n ¡Modelo entrenado Y GUARDADO en 'predictor_llamaradas.pkl'!")
+            
+            predicciones = modelo.predict(X_test)
+```
+Ejecutar el siguiente script: [Solar flare save model](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Solarflare_save-model.py)   
+
+<img width="664" height="73" alt="image" src="https://github.com/user-attachments/assets/b3056645-1d58-45cb-ad6b-64341fc54dc3" />  
+Ejecuta ese script del Paso 12 una última vez. Cuando termine, verás un nuevo archivo llamado predictor_llamaradas.pkl en tu carpeta de Spyder. Ese archivo es tu modelo de IA entrenado.
+
+## Paso 13: Script de Simulación "En Vivo" (con Alertas y Recuadros)
+Ahora sí, crea un script de Python completamente nuevo y pega este código.
+
+Este script es la culminación de todo. Hará lo siguiente:
+
+1. Cargará tu modelo de IA (joblib.load).
+
+2. Abrirá un nuevo archivo de video (cv2.VideoCapture).
+
+3. Procesará fotograma por fotograma.
+
+4. Dibujará un recuadro alrededor de la llamarada más grande que encuentre.
+
+5. Mantendrá un historial de las áreas detectadas.
+
+6. Usará tu IA para predecir el área futura en cada fotograma.
+
+7. Imprimirá "ALERTA" y lo dibujará en la pantalla si la predicción supera el umbral.
+
+Ejecutar el siguiente script: [Simulación Video (Alertas y Recuadros)](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Simulaci%C3%B3n_Video_Alertas_y_Recuadros.py)   
+
+<img width="1213" height="710" alt="image" src="https://github.com/user-attachments/assets/005f9e95-9085-4b09-a9b4-9db19a7742a5" />  
+
+

@@ -600,3 +600,12 @@ Ejecutar el siguiente script: [Simulación Video (Alertas y Recuadros)](https://
 <img width="1213" height="710" alt="image" src="https://github.com/user-attachments/assets/005f9e95-9085-4b09-a9b4-9db19a7742a5" />  
 
 
+## Simulación + gráfica 
+
+Para visualizar en tiempo real el módelo junto con la gráfica y tener un mayor análisis juntaremos el video junto al plot.
+
+Ejecutar el siguiente script: [Simulación + gráfica](https://github.com/Additrejo/HackICN/blob/main/HackICN/Spyder/Simulacion_mas_grafica.py)
+
+<img width="800" height="431" alt="image" src="https://github.com/user-attachments/assets/cfd1a160-78a6-43b2-b36a-04505b28ef74" /> 
+
+Nota: Revisat el Issue #2

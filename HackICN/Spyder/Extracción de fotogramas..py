@@ -76,7 +76,7 @@ ruta_video = r"C:\Users\addi_\Downloads\HackICN\Solarflare\SFVideo\SFVideo.mp4"
 carpeta_salida = r"C:\Users\addi_\Downloads\HackICN\Solarflare\SFVideo"
 
 # 3. Define cada cuántos segundos quieres una foto (ej. 0.5 para 2 fotos por segundo)
-intervalo = 1 # Guardar una foto cada 2 segundos
+intervalo = 0.2 # Guardar una foto cada 2 segundos
 
 # Ejecutar la función
 extraer_fotogramas(ruta_video, carpeta_salida, intervalo)
